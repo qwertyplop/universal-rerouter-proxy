@@ -74,7 +74,7 @@ def proxy_request(source_label, target_url):
         log_request(source_label, log_entry)
 
     # --- 2. PREPARE HEADERS (STRIP IDENTITY) ---
-    excluded_headers = ['content-length', 'host', 'origin', 'referer', 'cookie', 'user-agent', 'x-forwarded-for', 'x-forwarded-host']
+    excluded_headers = ['content-length', 'host', 'origin', 'referer', 'cookie', 'user-agent', 'x-forwarded-for', 'x-forwarded-host', 'accept-encoding']
     
     clean_headers = {
         k: v for k, v in request.headers.items() 
