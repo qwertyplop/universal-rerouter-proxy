@@ -25,15 +25,25 @@ This version is adapted to run on [Vercel](https://vercel.com) (Free Tier compat
         2.  Run `vercel`
         3.  Follow the prompts (Yes to everything).
 
-## ⚙️ Configuration
+## ⚙️ Configuration (Environment Variables)
 
-Configuration is located at the top of `api/index.py`. You can edit the variables there:
+You can configure the proxy settings without editing the code by using **Environment Variables** in your Vercel project settings.
 
-*   `TARGET_UPSTREAM`: Where requests are forwarded.
-*   `ENABLE_JANITORAI_PREFILL`: Enable assistant message injection.
-*   `JANITORAI_PREFILL_CONTENT`: Content for assistant injection.
-*   `ENABLE_JANITORAI_SYSTEM_PREFILL`: Enable system message injection.
-*   `JANITORAI_SYSTEM_PREFILL_CONTENT`: Content for system injection.
+**To add variables:**
+1.  Go to your Project Settings on Vercel.
+2.  Click **Environment Variables**.
+3.  Add any of the following Key-Value pairs:
+
+| Variable Key | Description | Default Value |
+| :--- | :--- | :--- |
+| `TARGET_UPSTREAM` | The API URL to forward requests to. | `https://api.openai.com/v1/chat/completions` |
+| `ENABLE_JANITORAI_PREFILL` | Set to `true` to inject an Assistant message at the end of the history. | `false` |
+| `JANITORAI_PREFILL_CONTENT` | The content of the Assistant prefill message. | `((OOC: Sure, let's proceed!))` |
+| `ENABLE_JANITORAI_SYSTEM_PREFILL` | Set to `true` to inject a System prompt at the end of the history. | `false` |
+| `JANITORAI_SYSTEM_PREFILL_CONTENT` | The content of the System prefill message. | *(A long default roleplay prompt)* |
+| `ENABLE_LOGGING` | Set to `false` to disable logging to Vercel console. | `true` |
+
+*(You must redeploy your project for new variables to take effect - usually by going to Deployments -> Redeploy).*
 
 ## ⚠️ Important Vercel Limitations
 
