@@ -166,6 +166,16 @@ def sillytavern_chat_proxy():
     if request.method == "OPTIONS": return "", 200
     return proxy_request("sillytavern", TARGET_UPSTREAM)
 
+@app.route("/sillytavern/models", methods=["GET", "OPTIONS"])
+def sillytavern_models_proxy():
+    if request.method == "OPTIONS": return "", 200
+    
+    # Derive /models URL from the /chat/completions upstream
+    # Assumes TARGET_UPSTREAM looks like ".../v1/chat/completions"
+    target_url = TARGET_UPSTREAM.replace("/chat/completions", "/models")
+    
+    return proxy_request("sillytavern_models", target_url)
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "running", "platform": "vercel", "target": TARGET_UPSTREAM}), 200
